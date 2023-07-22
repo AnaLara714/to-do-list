@@ -28,8 +28,14 @@ export default function App() {
       <Header>
         <Text>Count: {state.count}</Text>
       </Header>
-      <Button onPress={() => dispacth({ type: "decremente" })}>
+      <Button onPress={() => dispacth({ type: "increment" })}>
         <Text>Increment</Text>
+      </Button>
+      <Button success onPress={() => dispacth({ type: "decrement" })}>
+        <Text>Decrement</Text>
+      </Button>
+      <Button warning onPress={() => dispacth({ type: "reset" })}>
+        <Text>Reset</Text>
       </Button>
     </Container>
   );
