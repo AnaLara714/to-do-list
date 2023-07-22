@@ -2,41 +2,31 @@ import React, { useReact, useReducer } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { Button, Container, Header } from "native-base";
+import ToDoList from "./ToDoList";
 
-const initialState = {
-  count: 0,
+const todosInitialState = {
+  todos: [
+    { id: 1, text: "finishing writing hooks chapter" },
+    { id: 2, text: "play with kids" },
+    { id: 3, text: "read bible" },
+  ],
 };
 
-function reducer(state, action) {
+function todosreducer(state, action) {
   switch (action.type) {
-    case "increment":
-      return { count: state.count + 1 };
-    case "decrement":
-      return { count: state.count - 1 };
-    case "reset":
-      return initialState;
     default:
-      return initialState;
+      return todosInitialState;
   }
 }
 
+export const TodosContext = React.createContext();
+
 export default function App() {
-  const [state, dispacth] = useReducer(reducer, initialState);
+  const [state, dispacth] = useReducer(todosreducer, todosInitialState);
 
   return (
-    <Container>
-      <Header>
-        <Text>Count: {state.count}</Text>
-      </Header>
-      <Button onPress={() => dispacth({ type: "increment" })}>
-        <Text>Increment</Text>
-      </Button>
-      <Button success onPress={() => dispacth({ type: "decrement" })}>
-        <Text>Decrement</Text>
-      </Button>
-      <Button warning onPress={() => dispacth({ type: "reset" })}>
-        <Text>Reset</Text>
-      </Button>
-    </Container>
+    <TodosContext.Provider value={{ state, dispacth }}>
+      <ToDoList />
+    </TodosContext.Provider>
   );
 }
